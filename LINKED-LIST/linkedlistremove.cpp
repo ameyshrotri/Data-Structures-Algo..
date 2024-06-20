@@ -30,6 +30,7 @@ void insert(node*& head, int data){
 }
 
 void display(node* head){
+
     node* current = head;
     while (current != nullptr)
     {
@@ -39,6 +40,60 @@ void display(node* head){
     }
        
 }
+
+void removehead(node*& head) {
+    if (head == nullptr) { // List is empty
+        return;
+    }
+
+    node* n = head;
+    head = head->next;
+    delete n; // Free the memory of the former head node
+}
+
+void removelast(node* &head){
+    node* n = head;
+    if(head == nullptr) {return;}
+    if(head->next == nullptr){
+        delete head;
+        head = nullptr;
+        return;
+        }
+
+    while (n->next->next != nullptr)
+    {
+        n = n->next;
+    }
+    delete n->next;
+    n->next = nullptr;
+    
+    
+}
+
+void removek(node*& head,int k){
+   node* current = head;
+   
+    if(head == nullptr) {return;}
+    if(head->data == k ){
+        node* del = head;
+        head = head->next;
+        delete del;
+    
+        }
+   
+    while (current->next != nullptr)
+    {
+        if(current->next->data == k){
+            node* del  = current->next;
+           current-> next = current->next->next;
+           delete del;
+        }
+        else{
+            current = current->next;
+        }
+    }
+    
+}
 int main(){
 node* head = nullptr;
  insert(head,1);
@@ -47,6 +102,9 @@ node* head = nullptr;
  insert(head,13);
  insert(head,14);
 
-display(head);
+
+int n = 2;
+removek(head,n);
+ display(head);
 return 0;
 }
